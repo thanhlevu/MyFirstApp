@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { NavController } from "ionic-angular";
 import { PhotoViewer } from "@ionic-native/photo-viewer";
 import { IPicture } from "../../interfaces/pic";
+import { IPicture2 } from "../../interfaces/pic2";
+
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -10,6 +12,8 @@ import { HttpClient } from "@angular/common/http";
 })
 export class HomePage implements OnInit {
   picArray: IPicture[];
+  picArray2: IPicture2[];
+  src = "http://media.mw.metropolia.fi/wbma/uploads/";
 
   constructor(
     public navCtrl: NavController,
@@ -18,8 +22,9 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadItems();
+    this.loadItemsFromServer();
   }
+
   loadItems() {
     return this.http
       .get<IPicture[]>("../../assets/test.json")
@@ -29,7 +34,16 @@ export class HomePage implements OnInit {
       });
   }
 
+  loadItemsFromServer() {
+    return this.http
+      .get<IPicture2[]>("http://media.mw.metropolia.fi/wbma/media")
+      .subscribe(data => {
+        console.log(data);
+        this.picArray2 = data;
+      });
+  }
+
   viewImage(url: string) {
-    this.photoViewer.show(url);
+    this.photoViewer.show(this.src + url);
   }
 }
