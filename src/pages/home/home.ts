@@ -65,24 +65,29 @@ export class HomePage implements OnInit {
     this.mediaProvider.getAllMedia().subscribe((data: IPicture2[]) => {
       console.log("data", data);
       // A
-      this.picArray2 = data.map((pic: IPicture2) => {
-        const nameArray = pic.filename.split(".");
-        console.log("nameArray", nameArray);
-        pic.thumbnails = {
-          160: nameArray[0] + "-tn160.png"
-        };
-        console.log("pic after ", pic);
-        return pic;
-      });
+      //   this.picArray2 = data.map((pic: IPicture2) => {
+      //     const nameArray = pic.filename.split(".");
+      //     console.log("nameArray", nameArray);
+      //     pic.thumbnails = {
+      //       160: nameArray[0] + "-tn160.png"
+      //     };
+      //     console.log("pic after ", pic);
+      //     return pic;
+      //   });
 
       //B
-      // data.forEach((pic: IPicture2) => {
-      //     this.mediaProvider.getSingleMedia(pic.file_id);
-      // })
+      data.forEach((pic: IPicture2) => {
+        this.mediaProvider
+          .getSingleMedia(pic.file_id)
+          .subscribe((file: IPicture2) => {
+            this.picArray2.push(file);
+          });
+      });
     });
   }
 
   getAllFiles2() {
     this.picArray3 = this.mediaProvider.getAllMedia();
+    console.log(this.picArray3);
   }
 }
