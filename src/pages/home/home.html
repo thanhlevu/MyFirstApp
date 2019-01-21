@@ -4,7 +4,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let pic of picArray2">
+    <ion-item *ngFor="let pic of (picArray3 | async)">
       <ion-thumbnail item-start>
         <img [src]="src + pic.filename" />
       </ion-thumbnail>

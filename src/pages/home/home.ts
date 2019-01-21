@@ -3,8 +3,9 @@ import { NavController } from "ionic-angular";
 import { PhotoViewer } from "@ionic-native/photo-viewer";
 import { IPicture } from "../../interfaces/pic";
 import { IPicture2 } from "../../interfaces/pic2";
-
+import { MediaProvider } from "../../providers/media/media";
 import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "page-home",
@@ -13,16 +14,20 @@ import { HttpClient } from "@angular/common/http";
 export class HomePage implements OnInit {
   picArray: IPicture[];
   picArray2: IPicture2[];
+  picArray3: Observable<IPicture2[]>;
   src = "http://media.mw.metropolia.fi/wbma/uploads/";
 
   constructor(
     public navCtrl: NavController,
     private photoViewer: PhotoViewer,
-    public http: HttpClient
+    public http: HttpClient,
+    private mediaProvider: MediaProvider
   ) {}
 
   ngOnInit() {
-    this.loadItemsFromServer();
+    // this.loadItemsFromServer();
+    //this.getAllFile();
+    this.getAllFiles2();
   }
 
   loadItems() {
@@ -45,5 +50,39 @@ export class HomePage implements OnInit {
 
   viewImage(url: string) {
     this.photoViewer.show(this.src + url);
+  }
+
+  takeFileById(id) {
+    return this.http
+      .get<IPicture2[]>("http://media.mw.metropolia.fi/wbma/media/" + id)
+      .subscribe(data => {
+        console.log("alo", data);
+        this.picArray2 = data;
+      });
+  }
+
+  getAllFiles() {
+    this.mediaProvider.getAllMedia().subscribe((data: IPicture2[]) => {
+      console.log("data", data);
+      // A
+      this.picArray2 = data.map((pic: IPicture2) => {
+        const nameArray = pic.filename.split(".");
+        console.log("nameArray", nameArray);
+        pic.thumbnails = {
+          160: nameArray[0] + "-tn160.png"
+        };
+        console.log("pic after ", pic);
+        return pic;
+      });
+
+      //B
+      // data.forEach((pic: IPicture2) => {
+      //     this.mediaProvider.getSingleMedia(pic.file_id);
+      // })
+    });
+  }
+
+  getAllFiles2() {
+    this.picArray3 = this.mediaProvider.getAllMedia();
   }
 }
