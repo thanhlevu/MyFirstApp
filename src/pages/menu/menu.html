@@ -1,0 +1,16 @@
+<ion-header>
+  <button ion-button full (click)="login()">
+    <ion-icon name="log-in"></ion-icon> Log In
+  </button>
+  <button ion-button full (click)="home()">
+    <ion-icon name="home"></ion-icon> Home
+  </button>
+  <button ion-button full (click)="logout()">
+    <ion-icon name="log-out"></ion-icon> Log Out
+  </button>
+</ion-header>
+<ion-tabs>
+  <ion-tab [root]="tab1Root" tabTitle="Login" tabIcon="log-in"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Home" tabIcon="home"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="Logout" tabIcon="log-out"></ion-tab>
+</ion-tabs>

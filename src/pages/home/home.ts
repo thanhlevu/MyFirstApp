@@ -3,7 +3,7 @@ import { NavController } from "ionic-angular";
 import { PhotoViewer } from "@ionic-native/photo-viewer";
 import { IPicture } from "../../interfaces/pic";
 import { IPicture2 } from "../../interfaces/pic2";
-import { MediaProvider } from "../../providers/media/media";
+import { MediaProvider } from "../../providers/media/media.provider";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     // this.loadItemsFromServer();
     //this.getAllFile();
-    this.getAllFiles2();
+    this.getAllFiles3();
   }
 
   loadItems() {
@@ -63,30 +63,30 @@ export class HomePage implements OnInit {
 
   getAllFiles() {
     this.mediaProvider.getAllMedia().subscribe((data: IPicture2[]) => {
-      console.log("data", data);
+      console.log("data::", data);
       // A
-      //   this.picArray2 = data.map((pic: IPicture2) => {
-      //     const nameArray = pic.filename.split(".");
-      //     console.log("nameArray", nameArray);
-      //     pic.thumbnails = {
-      //       160: nameArray[0] + "-tn160.png"
-      //     };
-      //     console.log("pic after ", pic);
-      //     return pic;
-      //   });
+      this.picArray2 = data.map((pic: IPicture2) => {
+        const nameArray = pic.filename.split(".");
+        console.log("nameArray", nameArray);
+        pic.thumbnails = {
+          160: nameArray[0] + "-tn160.png"
+        };
+        console.log("pic after ", pic);
+        return pic;
+      });
 
       //B
-      data.forEach((pic: IPicture2) => {
-        this.mediaProvider
-          .getSingleMedia(pic.file_id)
-          .subscribe((file: IPicture2) => {
-            this.picArray2.push(file);
-          });
-      });
+      //   data.forEach((pic: IPicture2) => {
+      //     this.mediaProvider
+      //       .getSingleMedia(pic.file_id)
+      //       .subscribe((file: IPicture2) => {
+      //         this.picArray2.push(file);
+      //       });
+      //   });
     });
   }
 
-  getAllFiles2() {
+  getAllFiles3() {
     this.picArray3 = this.mediaProvider.getAllMedia();
     console.log(this.picArray3);
   }

@@ -1,19 +1,33 @@
 export interface IPicture2 {
+  file_id: number;
+  user_id: number;
   filename: string;
+  filesize: number;
   title: string;
   description: string;
-  file_id: string;
-  filesize: string;
   media_type: string;
   mime_type: string;
   time_added: string;
-  user_id: string;
-  thumbnails?: Thumbnail;
   screenshot?: string;
+  thumbnails?: Thumbnail;
 }
 
 export interface Thumbnail {
   160: string;
   320?: string;
   640?: string;
+}
+
+export interface User {
+  user_id?: number;
+  username: string;
+  password?: string;
+  email?: string;
+  full_name?: string;
+  data_created?: Date;
+}
+export interface LoginResponse {
+  message: string;
+  token: string;
+  user: User;
 }
