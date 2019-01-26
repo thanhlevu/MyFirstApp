@@ -14,7 +14,7 @@
     [root]="tab1Root"
     tabTitle="Login"
     tabIcon="log-in"
-    *ngIf="!loggedIn"
+    [show]="!this.mediaProvider.loggedIn"
   ></ion-tab>
   <ion-tab
     [root]="tab2Root"
@@ -27,6 +27,6 @@
     [root]="tab3Root"
     tabTitle="Logout"
     tabIcon="log-out"
-    *ngIf="loggedIn"
+    [show]="this.mediaProvider.loggedIn"
   ></ion-tab>
 </ion-tabs>

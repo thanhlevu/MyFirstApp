@@ -30,10 +30,6 @@ export class HomePage implements OnInit {
     this.getAllFiles3();
   }
 
-  ionViewDidLeave() {
-    console.log("hello");
-  }
-
   loadItems() {
     return this.http
       .get<IPicture[]>("../../assets/test.json")

@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { MediaProvider } from "../../providers/media/media.provider";
+import { LoginRegisterPage } from "../login-register/login-register";
 
 /**
  * Generated class for the LogoutPage page.
@@ -26,6 +27,10 @@ export class LogoutPage {
     console.log(this.mediaProvider.loggedIn);
     this.mediaProvider.loggedIn = false;
     console.log("Cleared!");
+  }
+
+  ionViewDidEnter() {
+    this.navCtrl.setRoot(LoginRegisterPage);
   }
   ngOnInit() {}
 }
