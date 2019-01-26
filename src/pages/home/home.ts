@@ -30,6 +30,10 @@ export class HomePage implements OnInit {
     this.getAllFiles3();
   }
 
+  ionViewDidLeave() {
+    console.log("hello");
+  }
+
   loadItems() {
     return this.http
       .get<IPicture[]>("../../assets/test.json")
@@ -88,6 +92,6 @@ export class HomePage implements OnInit {
 
   getAllFiles3() {
     this.picArray3 = this.mediaProvider.getAllMedia();
-    console.log(this.picArray3);
+    //console.log(this.picArray3);
   }
 }

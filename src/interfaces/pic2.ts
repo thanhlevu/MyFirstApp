@@ -31,3 +31,8 @@ export interface LoginResponse {
   token: string;
   user: User;
 }
+
+export interface UsernameResponse {
+  username: string;
+  available: string;
+}
