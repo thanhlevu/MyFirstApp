@@ -11,11 +11,19 @@ import { PhotoViewer } from "@ionic-native/photo-viewer";
 import { MediaProvider } from "../providers/media/media.provider";
 import { LoginRegisterPage } from "../pages/login-register/login-register";
 import { MenuPage } from "../pages/menu/menu";
-import { LogoutPage } from "../pages/logout/logout";
+import { ProfilePage } from "../pages/profile/profile";
 import { HttpModule } from "@angular/http";
+import { ThumbnailPipe } from "../pipes/thumbnail/thumbnail";
 
 @NgModule({
-  declarations: [MyApp, HomePage, LoginRegisterPage, MenuPage, LogoutPage],
+  declarations: [
+    MyApp,
+    HomePage,
+    LoginRegisterPage,
+    MenuPage,
+    ProfilePage,
+    ThumbnailPipe
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
@@ -23,7 +31,7 @@ import { HttpModule } from "@angular/http";
     HttpModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, HomePage, LoginRegisterPage, MenuPage, LogoutPage],
+  entryComponents: [MyApp, HomePage, LoginRegisterPage, MenuPage, ProfilePage],
   providers: [
     StatusBar,
     SplashScreen,

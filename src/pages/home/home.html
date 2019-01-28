@@ -6,10 +6,11 @@
   <ion-list>
     <ion-item *ngFor="let pic of (picArray3 | async)">
       <ion-thumbnail item-start>
-        <img [src]="src + pic.filename" />
+        <img [src]="pic.filename | thumbnail: 'screenshot'" />
       </ion-thumbnail>
       <h2>{{ pic.title }}</h2>
       <p>{{ pic.description }}</p>
+      <p>{{ pic.time_added | date: "fullDate" }}</p>
       <button ion-button clear item-end (click)="viewImage(pic.filename)">
         View
       </button>

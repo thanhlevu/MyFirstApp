@@ -1,12 +1,20 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable, OnInit } from "@angular/core";
-import { IPicture2, User, LoginResponse } from "../../interfaces/pic2";
+import {
+  IPicture2,
+  User,
+  LoginResponse,
+  TagsResponse
+} from "../../interfaces/pic2";
 
 @Injectable()
 export class MediaProvider {
   configUrl = "https://media.mw.metropolia.fi/wbma";
   picArray: IPicture2[];
   loggedIn = false;
+  token: string;
+  user_id: number;
+  avatar: string;
   constructor(public http: HttpClient) {
     console.log("Hello MediaProvider Provider");
   }
@@ -19,8 +27,32 @@ export class MediaProvider {
     return this.http.get<IPicture2>(this.configUrl + "/media/" + id);
   }
 
+  getAvatar() {
+    return new Promise((resolve, reject) => {
+      const url = this.configUrl + "/tags/";
+      console.log(url);
+      this.http
+        .get<TagsResponse[]>("https://media.mw.metropolia.fi/wbma/tags/profile")
+        .subscribe((res: TagsResponse[]) => {
+          //res.filter
+          res.forEach((file: TagsResponse) => {
+            if (file.user_id === this.user_id) {
+              resolve(file.filename);
+              console.log("test-av", this.avatar);
+            } else {
+              this.avatar = "false case";
+            }
+          });
+          resolve(null);
+        });
+      console.log("avatar", this.avatar);
+    });
+    // console.log(aPromise);
+    // return aPromise;
+  }
+
   onRegister(formValues) {
-    const url = "http://media.mw.metropolia.fi/wbma/users";
+    const url = this.configUrl + "/users";
 
     this.http.post(url, formValues).subscribe(status => {
       alert(status["message"]);
@@ -53,5 +85,19 @@ export class MediaProvider {
   }
   checkIfUserExists(user: User) {
     return this.http.get(this.configUrl + "/users/username/" + user.username);
+  }
+
+  getUsersInfo() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "x-access-token": this.token
+      })
+    };
+    if (this.user_id) {
+      return this.http.get(
+        this.configUrl + "/users/" + this.user_id,
+        httpOptions
+      );
+    }
   }
 }

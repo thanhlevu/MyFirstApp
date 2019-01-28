@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { NavController } from "ionic-angular";
+import { NavController, Thumbnail } from "ionic-angular";
 import { PhotoViewer } from "@ionic-native/photo-viewer";
 import { IPicture } from "../../interfaces/pic";
 import { IPicture2 } from "../../interfaces/pic2";
 import { MediaProvider } from "../../providers/media/media.provider";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { ThumbnailPipe } from "../../pipes/thumbnail/thumbnail";
 
 @Component({
   selector: "page-home",
@@ -27,7 +28,9 @@ export class HomePage implements OnInit {
   ngOnInit() {
     // this.loadItemsFromServer();
     //this.getAllFile();
+    this.mediaProvider.getUsersInfo();
     this.getAllFiles3();
+    //console.log(this.mediaProvider.user_id);
   }
 
   loadItems() {
@@ -63,7 +66,7 @@ export class HomePage implements OnInit {
 
   getAllFiles() {
     this.mediaProvider.getAllMedia().subscribe((data: IPicture2[]) => {
-      console.log("data::", data);
+      //console.log("data::", data);
       // A
       this.picArray2 = data.map((pic: IPicture2) => {
         const nameArray = pic.filename.split(".");

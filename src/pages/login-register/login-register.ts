@@ -36,7 +36,10 @@ export class LoginRegisterPage {
         console.log(response);
         localStorage.setItem("token", response.token);
         this.navCtrl.push(HomePage);
+        this.mediaprovider.token = response.token;
         this.mediaprovider.loggedIn = true;
+        this.mediaprovider.user_id = response.user.user_id;
+        console.log("user.id: " + this.mediaprovider.user_id);
       },
       error => {
         console.log(error);
