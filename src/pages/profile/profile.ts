@@ -4,6 +4,7 @@ import { MediaProvider } from "../../providers/media/media.provider";
 import { LoginRegisterPage } from "../login-register/login-register";
 import { User } from "../../interfaces/pic2";
 import { TagsResponse } from "../../interfaces/pic2";
+import { IPicture2 } from "../../interfaces/pic2";
 
 /**
  * Generated class for the LogoutPage page.
@@ -46,11 +47,24 @@ export class ProfilePage {
       this.fulfname = data.full_name;
       this.user_id = data.user_id;
       this.username = data.username;
+      this.mediaProvider.getAvatar().subscribe((ava: TagsResponse[]) => {
+        console.log(ava);
+
+        ava.filter(a => {
+          console.log(a.user_id, this.user_id);
+          if (a.user_id === this.user_id) {
+            this.avatar = a.filename;
+          }
+        });
+      });
     });
-    this.mediaProvider.getAvatar().then((avatar: string) => {
-      this.avatar = avatar;
-      console.log("a:" + avatar);
-    });
-    console.log("avatar: " + this.avatar);
+  }
+
+  logOut() {
+    localStorage.clear();
+    console.log(this.mediaProvider.loggedIn);
+    this.mediaProvider.loggedIn = false;
+    console.log("Cleared!");
+    this.navCtrl.setRoot(LoginRegisterPage);
   }
 }

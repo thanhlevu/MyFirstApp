@@ -28,27 +28,9 @@ export class MediaProvider {
   }
 
   getAvatar() {
-    return new Promise((resolve, reject) => {
-      const url = this.configUrl + "/tags/";
-      console.log(url);
-      this.http
-        .get<TagsResponse[]>("https://media.mw.metropolia.fi/wbma/tags/profile")
-        .subscribe((res: TagsResponse[]) => {
-          //res.filter
-          res.forEach((file: TagsResponse) => {
-            if (file.user_id === this.user_id) {
-              resolve(file.filename);
-              console.log("test-av", this.avatar);
-            } else {
-              this.avatar = "false case";
-            }
-          });
-          resolve(null);
-        });
-      console.log("avatar", this.avatar);
-    });
-    // console.log(aPromise);
-    // return aPromise;
+    return this.http.get<TagsResponse[]>(
+      "https://media.mw.metropolia.fi/wbma/tags/profile"
+    );
   }
 
   onRegister(formValues) {
