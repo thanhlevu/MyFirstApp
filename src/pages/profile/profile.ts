@@ -23,7 +23,7 @@ export class ProfilePage {
   fulfname: string;
   user_id: number;
   username: string;
-  avatar: string;
+  avatar = "";
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -47,13 +47,13 @@ export class ProfilePage {
       this.fulfname = data.full_name;
       this.user_id = data.user_id;
       this.username = data.username;
-      this.mediaProvider.getAvatar().subscribe((ava: TagsResponse[]) => {
-        console.log(ava);
+      this.mediaProvider.getAvatars().subscribe((avatars: TagsResponse[]) => {
+        console.log(avatars);
 
-        ava.filter(a => {
-          console.log(a.user_id, this.user_id);
-          if (a.user_id === this.user_id) {
-            this.avatar = a.filename;
+        avatars.filter(avatar => {
+          if (avatar.user_id === this.user_id) {
+            this.avatar = avatar.filename;
+            console.log(avatar.user_id, this.user_id);
           }
         });
       });
@@ -65,6 +65,6 @@ export class ProfilePage {
     console.log(this.mediaProvider.loggedIn);
     this.mediaProvider.loggedIn = false;
     console.log("Cleared!");
-    this.navCtrl.setRoot(LoginRegisterPage);
+    this.navCtrl.push(LoginRegisterPage);
   }
 }

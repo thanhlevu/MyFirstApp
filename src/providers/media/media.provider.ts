@@ -14,7 +14,7 @@ export class MediaProvider {
   loggedIn = false;
   token: string;
   user_id: number;
-  avatar: string;
+
   constructor(public http: HttpClient) {
     console.log("Hello MediaProvider Provider");
   }
@@ -27,7 +27,7 @@ export class MediaProvider {
     return this.http.get<IPicture2>(this.configUrl + "/media/" + id);
   }
 
-  getAvatar() {
+  getAvatars() {
     return this.http.get<TagsResponse[]>(
       "https://media.mw.metropolia.fi/wbma/tags/profile"
     );

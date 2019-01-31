@@ -13,15 +13,16 @@ export interface IPicture2 {
 }
 
 export interface Thumbnail {
-  160: string;
-  320?: string;
-  640?: string;
+  w160: string;
+  w320?: string;
+  w640?: string;
 }
 
 export interface User {
   user_id?: number;
   username: string;
   password?: string;
+  password2?: string;
   email?: string;
   full_name?: string;
   data_created?: Date;

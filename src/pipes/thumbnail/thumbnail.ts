@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
-
+import { MediaProvider } from "../../providers/media/media.provider";
+import { IPicture2 } from "../../interfaces/pic2";
 /**
  * Generated class for the ThumbnailPipe pipe.
  *
@@ -9,13 +10,14 @@ import { Pipe, PipeTransform } from "@angular/core";
   name: "thumbnail"
 })
 export class ThumbnailPipe implements PipeTransform {
-  /**
-   * Takes a value and makes it lowercase.
-   */
-  transform(value: string, sizeOptions: string) {
-    console.log(value);
+  private thumbnail = "";
+  private cachedID;
+
+  constructor(public mediaProvider: MediaProvider) {}
+  /*transform(value: string, sizeOptions: string) {
+    //console.log(value);
     const nameArray = value.split(".");
-    console.log(nameArray);
+    //console.log(nameArray);
     if (sizeOptions == "small") {
       let thumbnail =
         "http://media.mw.metropolia.fi/wbma/uploads/" +
@@ -50,5 +52,26 @@ export class ThumbnailPipe implements PipeTransform {
         "png";
       return thumbnail;
     }
+  }*/
+
+  async transform(id: string, ...args) {
+    return new Promise((resolve, reject) => {
+      this.mediaProvider.getSingleMedia(id).subscribe((res: IPicture2) => {
+        switch (args[0]) {
+          case "large":
+            resolve(res.thumbnails.w640);
+            break;
+          case "medium":
+            resolve(res.thumbnails.w320);
+            break;
+          case "small":
+            resolve(res.thumbnails.w160);
+            break;
+          case "screenshot":
+            resolve(res.screenshot);
+            break;
+        }
+      });
+    });
   }
 }
