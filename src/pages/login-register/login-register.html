@@ -1,7 +1,9 @@
 <ion-content padding center text-center>
   <ion-title>REGISTER</ion-title>
-  <form #form="ngForm">
-    <ion-item *ngIf="!this.onRegister">
+
+  <!-- SIGN IN FORM -->
+  <form #formSignIn="ngForm" *ngIf="!this.onRegister">
+    <ion-item>
       <ion-label color="primary" floating>Username</ion-label>
       <ion-input
         type="text"
@@ -11,8 +13,35 @@
         required
       ></ion-input>
     </ion-item>
-    <p *ngIf="!form.controls.username?.errors?.required">Username is reuired</p>
-    <ion-item *ngIf="this.onRegister">
+    <!-- <p *ngIf="!form.controls?.username?.errors?.required">
+      Username is reuired
+    </p> -->
+    <ion-item>
+      <ion-label color="primary" floating>Password</ion-label>
+      <ion-input
+        type="Password"
+        ngModel
+        [(ngModel)]="user.password"
+        name="password"
+        required
+      ></ion-input>
+    </ion-item>
+    <button
+      ion-button
+      block
+      color="secondary"
+      type="submit"
+      required
+      (click)="loginClicked(formSignIn)"
+    >
+      Login
+    </button>
+    <button ion-button (click)="openRegisterForm()">No account yet?</button>
+  </form>
+
+  <!-- SIGN UP FORM -->
+  <form #formSignUp="ngForm" *ngIf="this.onRegister">
+    <ion-item>
       <ion-label color="primary" floating>Username</ion-label>
       <ion-input
         type="text"
@@ -21,9 +50,10 @@
         ngModel
         required
         (ionBlur)="checkUsername()"
+        minlength="3"
       ></ion-input>
     </ion-item>
-    <ion-item *ngIf="this.onRegister">
+    <ion-item>
       <ion-label color="primary" floating>Full Name</ion-label>
       <ion-input
         type="text"
@@ -40,9 +70,10 @@
         [(ngModel)]="user.password"
         name="password"
         required
+        minlength="5"
       ></ion-input>
     </ion-item>
-    <ion-item *ngIf="this.onRegister">
+    <ion-item>
       <ion-label color="primary" floating>Password</ion-label>
       <ion-input
         type="Password"
@@ -50,36 +81,36 @@
         [(ngModel)]="user.password2"
         name="password2"
         required
-        (ionBlur)="confirmPassword()"
+        minlength="5"
+        (ionBlur)="checkPassword()"
       ></ion-input>
     </ion-item>
-    <ion-item *ngIf="this.onRegister">
+    <ion-item>
       <ion-label color="primary" floating>Email</ion-label>
-      <ion-input type="email" name="email" required></ion-input>
+      <ion-input
+        type="email"
+        name="email"
+        required
+        [(ngModel)]="user.email"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        (ionBlur)="checkEmail(formSignUp)"
+      ></ion-input>
     </ion-item>
+
     <button
       ion-button
       block
       color="secondary"
       type="submit"
-      required
-      (click)="loginClicked(form)"
-      *ngIf="!this.onRegister"
-    >
-      Login
-    </button>
-    <button ion-button (click)="openRegisterForm()" *ngIf="!this.onRegister">
-      No account yet?
-    </button>
-    <button
-      ion-button
-      block
-      color="secondary"
-      type="submit"
-      (click)="registerClicked(form)"
+      (click)="registerClicked(formSignUp)"
       *ngIf="this.onRegister"
     >
       Register
     </button>
+    <ion-icon color="warning" name="alert">
+      <p>{{ usernameError }}</p>
+      <p>{{ passwordError }}</p>
+      <p>{{ emailError }}</p>
+    </ion-icon>
   </form>
 </ion-content>
