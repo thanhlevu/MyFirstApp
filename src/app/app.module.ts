@@ -14,6 +14,7 @@ import { MenuPage } from "../pages/menu/menu";
 import { ProfilePage } from "../pages/profile/profile";
 import { HttpModule } from "@angular/http";
 import { ThumbnailPipe } from "../pipes/thumbnail/thumbnail";
+import { UploadPage } from "../pages/upload/upload";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ThumbnailPipe } from "../pipes/thumbnail/thumbnail";
     LoginRegisterPage,
     MenuPage,
     ProfilePage,
-    ThumbnailPipe
+    ThumbnailPipe,
+    UploadPage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,14 @@ import { ThumbnailPipe } from "../pipes/thumbnail/thumbnail";
     HttpModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [MyApp, HomePage, LoginRegisterPage, MenuPage, ProfilePage],
+  entryComponents: [
+    MyApp,
+    HomePage,
+    LoginRegisterPage,
+    MenuPage,
+    ProfilePage,
+    UploadPage
+  ],
   providers: [
     StatusBar,
     SplashScreen,

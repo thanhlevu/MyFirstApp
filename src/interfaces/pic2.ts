@@ -50,3 +50,9 @@ export interface TagsResponse {
   time_added: string;
   title: string;
 }
+
+export interface UploadForm {
+  file?: File;
+  description?: string;
+  title?: string;
+}

@@ -35,50 +35,50 @@ export class LoginRegisterPage {
     }
   }
   loginClicked(formSignIn) {
-    // console.log(formSignIn);
-    // this.mediaprovider.login(this.user).subscribe(
-    //   (response: LoginResponse) => {
-    //     console.log("response");
-    //     console.log(response);
-    //     localStorage.setItem("token", response.token);
-    //     this.navCtrl.push(HomePage);
-    //     this.mediaprovider.token = response.token;
-    //     this.mediaprovider.loggedIn = true;
-    //     this.mediaprovider.user_id = response.user.user_id;
-    //     console.log("user.id: " + this.mediaprovider.user_id);
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
+    console.log(formSignIn);
+    this.mediaprovider.login(this.user).subscribe(
+      (response: LoginResponse) => {
+        console.log("response");
+        console.log(response);
+        localStorage.setItem("token", response.token);
+        this.navCtrl.push(HomePage);
+        this.mediaprovider.token = response.token;
+        this.mediaprovider.loggedIn = true;
+        this.mediaprovider.user_id = response.user.user_id;
+        console.log("user.id: " + this.mediaprovider.user_id);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   //thanhvl@metropolia.fi
 
   registerClicked(formSignUp) {
     console.log(formSignUp);
 
-    // if (formSignUp.valid) {
-    //   this.mediaprovider.checkIfUserExists(this.user).subscribe(
-    //     (response: UsernameResponse) => {
-    //       console.log(response);
-    //       if (response.available) {
-    //         this.mediaprovider.register(this.user).subscribe(
-    //           (response: LoginResponse) => {
-    //             localStorage.setItem("token", response.token);
-    //             this.navCtrl.push(HomePage);
-    //             console.log(response);
-    //           },
-    //           error => {
-    //             console.log(error);
-    //           }
-    //         );
-    //       }
-    //     },
-    //     error => {
-    //       console.log(error);
-    //     }
-    //   );
-    // }
+    if (formSignUp.valid) {
+      this.mediaprovider.checkIfUserExists(this.user).subscribe(
+        (response: UsernameResponse) => {
+          console.log(response);
+          if (response.available) {
+            this.mediaprovider.register(this.user).subscribe(
+              (response: LoginResponse) => {
+                localStorage.setItem("token", response.token);
+                this.navCtrl.push(HomePage);
+                console.log(response);
+              },
+              error => {
+                console.log(error);
+              }
+            );
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   openRegisterForm() {

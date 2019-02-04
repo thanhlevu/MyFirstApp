@@ -7,6 +7,7 @@ import { MediaProvider } from "../../providers/media/media.provider";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { ThumbnailPipe } from "../../pipes/thumbnail/thumbnail";
+import { UploadPage } from "../upload/upload";
 
 @Component({
   selector: "page-home",
@@ -93,5 +94,8 @@ export class HomePage implements OnInit {
   getAllFiles3() {
     this.picArray3 = this.mediaProvider.getAllMedia();
     //console.log(this.picArray3);
+  }
+  goToUpload() {
+    this.navCtrl.push(UploadPage);
   }
 }

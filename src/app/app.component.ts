@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { Platform } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
+import { UploadPage } from "../pages/upload/upload";
 
 import { HomePage } from "../pages/home/home";
 import { LoginRegisterPage } from "../pages/login-register/login-register";
@@ -11,7 +12,7 @@ import { MenuPage } from "../pages/menu/menu";
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any = MenuPage;
+  rootPage: any = HomePage;
 
   constructor(
     platform: Platform,
