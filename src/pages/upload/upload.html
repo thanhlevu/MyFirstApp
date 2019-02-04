@@ -36,9 +36,35 @@
         (change)="handleChange($event)"
       ></ion-input>
     </ion-item>
-    <button ion-button>Upload</button>
+    <button ion-button (click)="uploadImage()">Upload</button>
   </form>
-  <ion-card>
-    <img [src]="fileData" />
-  </ion-card>
+
+  <img #preview [src]="fileData" />
+  <ion-item>
+    <ion-range color="danger" pin="true">
+      <ion-icon small range-left name="sunny"></ion-icon>
+      <ion-icon range-right name="sunny"></ion-icon>
+    </ion-range>
+  </ion-item>
+
+  <ion-item>
+    <ion-range min="-200" max="200" color="secondary">
+      <ion-icon small range-left name="contrast"></ion-icon>
+      <ion-icon range-right name="contrast"></ion-icon>
+    </ion-range>
+  </ion-item>
+
+  <ion-item>
+    <ion-range min="20" max="80" step="2">
+      <ion-icon small range-left name="water"></ion-icon>
+      <ion-icon range-right name="water"></ion-icon>
+    </ion-range>
+  </ion-item>
+
+  <ion-item>
+    <ion-range min="1000" max="2000" step="100" snaps="true" color="secondary">
+      <ion-icon small range-left name="thermometer"></ion-icon>
+      <ion-icon range-right name="thermometer"></ion-icon
+    ></ion-range>
+  </ion-item>
 </ion-content>

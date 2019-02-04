@@ -12,7 +12,7 @@ import { MenuPage } from "../pages/menu/menu";
   templateUrl: "app.html"
 })
 export class MyApp {
-  rootPage: any = HomePage;
+  rootPage: any = LoginRegisterPage;
 
   constructor(
     platform: Platform,

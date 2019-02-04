@@ -90,7 +90,7 @@ export class MediaProvider {
       })
     };
     return this.http.post<LoginResponse>(
-      this.configUrl + "/upload",
+      this.configUrl + "/media",
       data,
       httpOptions
     );

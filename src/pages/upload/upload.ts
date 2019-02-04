@@ -1,5 +1,10 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  LoadingController
+} from "ionic-angular";
 
 import { Observable, Subject, ReplaySubject } from "rxjs";
 import { map, filter, switchMap } from "rxjs/operators";
@@ -7,6 +12,7 @@ import { map, filter, switchMap } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { IPicture2, UploadForm } from "../../interfaces/pic2";
 import { MediaProvider } from "../../providers/media/media.provider";
+
 @IonicPage()
 @Component({
   selector: "page-upload",
@@ -15,7 +21,7 @@ import { MediaProvider } from "../../providers/media/media.provider";
 export class UploadPage {
   picture: any;
   uploadForm: UploadForm = {};
-  fileData = "";
+  fileData: string;
   file: File;
   title = "";
   description = "";
@@ -24,7 +30,8 @@ export class UploadPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private mediaProvider: MediaProvider
+    private mediaProvider: MediaProvider,
+    private loadingCtrl: LoadingController
   ) {}
 
   ionViewDidLoad() {
@@ -36,10 +43,6 @@ export class UploadPage {
     this.file = $event.target.files[0];
 
     this.showPreview();
-
-    // this.formData.append("file", this.fileData);
-    // this.formData.append("title", this.picture.title);
-    // this.formData.append("description", this.picture.description);
   }
 
   showPreview() {
@@ -49,23 +52,37 @@ export class UploadPage {
       //console.log(reader.result)
       this.fileData = reader.result;
     };
-    reader.readAsDataURL(this.file);
-    // this.mediaProvider.getAvatars().subscribe((avatars: TagsResponse[]) => {}
+    if (this.file.type.includes("video")) {
+      this.fileData = "http://via.placeholder.com/500x200/000?text=Video";
+    } else if (this.file.type.includes("audio")) {
+      this.fileData = "http://via.placeholder.com/500x200/000?text=Audio";
+    } else {
+      reader.readAsDataURL(this.file);
+    }
   }
 
-  uploadImage(formData) {
+  uploadImage() {
     //show spinner
     const fd = new FormData();
-    fd.append("file", this.fileData);
+    fd.append("file", this.file);
     fd.append("title", this.title);
     fd.append("description", this.description);
-    this.mediaProvider.upload(formData).subscribe(res => {
+    console.log(fd);
+    this.mediaProvider.upload(fd).subscribe(res => {
       //set time out in 2s
       console.log(res);
-      this.navCtrl.pop().catch();
       // hide spinner
+      this.loading();
     });
   }
 
-  ionDViewDidEnter() {}
+  loading() {
+    let loading = this.loadingCtrl.create({});
+    loading.present();
+
+    setTimeout(() => {
+      loading.dismiss();
+      this.navCtrl.pop().catch();
+    }, 2000);
+  }
 }

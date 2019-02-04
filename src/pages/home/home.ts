@@ -14,6 +14,7 @@ import { UploadPage } from "../upload/upload";
   templateUrl: "home.html"
 })
 export class HomePage implements OnInit {
+  ngOnInit() {}
   picArray: IPicture[];
   picArray2: IPicture2[];
   picArray3: Observable<IPicture2[]>;
@@ -26,7 +27,7 @@ export class HomePage implements OnInit {
     private mediaProvider: MediaProvider
   ) {}
 
-  ngOnInit() {
+  ionViewDidEnter() {
     // this.loadItemsFromServer();
     //this.getAllFile();
     this.mediaProvider.getUsersInfo();
