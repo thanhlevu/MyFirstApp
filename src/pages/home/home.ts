@@ -31,7 +31,6 @@ export class HomePage implements OnInit {
     this.mediaProvider.getUsersInfo();
     this.getAllFiles3();
     //console.log(this.mediaProvider.user_id);
-    this;
   }
 
   loadItems() {
@@ -67,15 +66,15 @@ export class HomePage implements OnInit {
 
   getAllFiles() {
     this.mediaProvider.getAllMedia().subscribe((data: IPicture2[]) => {
-      //console.log("data::", data);
+      console.log("data::", data);
       // A
       this.picArray2 = data.map((pic: IPicture2) => {
         const nameArray = pic.filename.split(".");
-        //console.log("nameArray", nameArray);
+        console.log("nameArray", nameArray);
         pic.thumbnails = {
           w160: nameArray[0] + "-tn160.png"
         };
-        //console.log("pic after ", pic);
+        console.log("pic after ", pic);
         return pic;
       });
 

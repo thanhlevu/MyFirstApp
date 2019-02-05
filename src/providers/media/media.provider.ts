@@ -59,6 +59,9 @@ export class MediaProvider {
         "Content-type": "application/json"
       })
     };
+
+    delete user.password2;
+
     return this.http.post<LoginResponse>(
       this.configUrl + "/users",
       user,
