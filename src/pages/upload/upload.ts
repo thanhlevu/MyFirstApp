@@ -8,7 +8,7 @@ import {
 
 import { Observable, Subject, ReplaySubject } from "rxjs";
 import { map, filter, switchMap } from "rxjs/operators";
-
+import { Chooser } from "@ionic-native/chooser";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { IPicture2, UploadForm } from "../../interfaces/pic2";
 import { MediaProvider } from "../../providers/media/media.provider";
@@ -20,7 +20,9 @@ import { MediaProvider } from "../../providers/media/media.provider";
 })
 export class UploadPage {
   picture: any;
+  myBlob;
   uploadForm: UploadForm = {};
+  private homeworkpicture: any[] = [];
   fileData: string;
   file: File;
   title = "";
@@ -31,7 +33,8 @@ export class UploadPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private mediaProvider: MediaProvider,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private chooser: Chooser
   ) {}
 
   ionViewDidLoad() {
@@ -84,5 +87,17 @@ export class UploadPage {
       loading.dismiss();
       this.navCtrl.pop().catch();
     }, 2000);
+  }
+
+  betterUpload() {
+    this.chooser
+      .getFile("image/*, video/*, audio/*")
+      .then(file => {
+        console.log(file ? file.name : "canceled");
+        this.myBlob = new Blob([file.data], { type: file.mediaType });
+        this.homeworkpicture.push("data:image/png;base64," + this.myBlob);
+        console.log(this.homeworkpicture);
+      })
+      .catch((error: any) => console.error(error));
   }
 }

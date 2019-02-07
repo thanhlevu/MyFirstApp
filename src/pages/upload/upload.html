@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>upload</ion-title>
+    <ion-buttons end>
+      <button ion-fab (click)="goToPost()">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -29,12 +34,13 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>File</ion-label>
+      <!-- <ion-label>File</ion-label>
       <ion-input
         type="file"
         accept="image"
         (change)="handleChange($event)"
-      ></ion-input>
+      ></ion-input> -->
+      <button ion-button (click)="betterUpload()">upload Imgae</button>
     </ion-item>
     <button ion-button (click)="uploadImage()">Upload</button>
   </form>

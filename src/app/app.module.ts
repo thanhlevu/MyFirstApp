@@ -7,14 +7,15 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { MyApp } from "./app.component";
 import { HomePage } from "../pages/home/home";
-import { PhotoViewer } from "@ionic-native/photo-viewer";
+import { UploadPage } from "../pages/upload/upload";
 import { MediaProvider } from "../providers/media/media.provider";
 import { LoginRegisterPage } from "../pages/login-register/login-register";
 import { MenuPage } from "../pages/menu/menu";
 import { ProfilePage } from "../pages/profile/profile";
 import { HttpModule } from "@angular/http";
 import { ThumbnailPipe } from "../pipes/thumbnail/thumbnail";
-import { UploadPage } from "../pages/upload/upload";
+import { Camera } from "@ionic-native/camera";
+import { Chooser } from "@ionic-native/chooser";
 
 @NgModule({
   declarations: [
@@ -23,8 +24,8 @@ import { UploadPage } from "../pages/upload/upload";
     LoginRegisterPage,
     MenuPage,
     ProfilePage,
-    ThumbnailPipe,
-    UploadPage
+    UploadPage,
+    ThumbnailPipe
   ],
   imports: [
     BrowserModule,
@@ -44,8 +45,9 @@ import { UploadPage } from "../pages/upload/upload";
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
+    Chooser,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    PhotoViewer,
     MediaProvider
   ]
 })

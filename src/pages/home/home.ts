@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController, Thumbnail } from "ionic-angular";
-import { PhotoViewer } from "@ionic-native/photo-viewer";
 import { IPicture } from "../../interfaces/pic";
 import { IPicture2 } from "../../interfaces/pic2";
 import { MediaProvider } from "../../providers/media/media.provider";
@@ -22,7 +21,7 @@ export class HomePage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    private photoViewer: PhotoViewer,
+    //private photoViewer: PhotoViewer,
     public http: HttpClient,
     private mediaProvider: MediaProvider
   ) {}
@@ -54,9 +53,9 @@ export class HomePage implements OnInit {
       });
   }
 
-  viewImage(url: string) {
-    this.photoViewer.show(this.src + url);
-  }
+  //   viewImage(url: string) {
+  //     this.photoViewer.show(this.src + url);
+  //   }
 
   takeFileById(id) {
     return this.http
