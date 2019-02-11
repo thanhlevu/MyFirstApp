@@ -45,7 +45,7 @@
     <button ion-button (click)="uploadImage()">Upload</button>
   </form>
 
-  <img #preview [src]="fileData" />
+  <img #preview [src]="myBlob" [ngStyle]="betterUpload()" />
   <ion-item>
     <ion-range color="danger" pin="true">
       <ion-icon small range-left name="sunny"></ion-icon>

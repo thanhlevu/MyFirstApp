@@ -21,7 +21,6 @@ export class HomePage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    //private photoViewer: PhotoViewer,
     public http: HttpClient,
     private mediaProvider: MediaProvider
   ) {}

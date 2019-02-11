@@ -20,7 +20,7 @@ import { MediaProvider } from "../../providers/media/media.provider";
 })
 export class UploadPage {
   picture: any;
-  myBlob;
+  myBlob: any;
   uploadForm: UploadForm = {};
   private homeworkpicture: any[] = [];
   fileData: string;
@@ -29,6 +29,14 @@ export class UploadPage {
   description = "";
   formData = new FormData();
   src = "https://media.mw.metropolia.fi/wbma";
+
+  filters = {
+    brightness: 100,
+    contrast: 100,
+    sepia: 0,
+    saturation: 100
+  };
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -65,6 +73,15 @@ export class UploadPage {
   }
 
   uploadImage() {
+    this.description =
+      "Brightness: " +
+      this.filters.brightness +
+      ". Contrast: " +
+      this.filters.contrast +
+      ". Sepia:" +
+      this.filters.sepia +
+      ". Saturate: " +
+      this.filters.saturation;
     //show spinner
     const fd = new FormData();
     fd.append("file", this.file);
@@ -90,13 +107,21 @@ export class UploadPage {
   }
 
   betterUpload() {
+    // this.chooser
+    //   .getFile("image/*, video/*, audio/*")
+    //   .then(file => {
+    //     console.log(file ? file.name : "canceled");
+    //     this.myBlob = new Blob([file.data], { type: file.mediaType });
+    //   })
+    //   .catch((error: any) => console.error(error));
+
     this.chooser
-      .getFile("image/*, video/*, audio/*")
+      .getFile("image/*")
       .then(file => {
-        console.log(file ? file.name : "canceled");
-        this.myBlob = new Blob([file.data], { type: file.mediaType });
-        this.homeworkpicture.push("data:image/png;base64," + this.myBlob);
-        console.log(this.homeworkpicture);
+        this.myBlob = new Blob([file.data], {
+          type: file.mediaType
+        });
+        this.showPreview();
       })
       .catch((error: any) => console.error(error));
   }
