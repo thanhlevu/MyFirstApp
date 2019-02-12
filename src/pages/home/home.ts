@@ -28,12 +28,8 @@ export class HomePage implements OnInit {
   ) {}
 
   ionViewDidEnter() {
-    // this.loadItemsFromServer();
-    //this.getAllFile();
-    this.mediaProvider.getUsersInfo();
+    //this.mediaProvider.getUsersInfo();
     this.getAllFiles3();
-    //console.log(this.mediaProvider.user_id);
-    this;
   }
 
   loadItems() {
@@ -94,7 +90,6 @@ export class HomePage implements OnInit {
 
   getAllFiles3() {
     this.picArray3 = this.mediaProvider.getAllMedia();
-    //console.log(this.picArray3);
   }
   goToUpload() {
     this.navCtrl.push(UploadPage);

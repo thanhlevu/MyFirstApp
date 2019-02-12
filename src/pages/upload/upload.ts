@@ -27,6 +27,13 @@ export class UploadPage {
   description = "";
   formData = new FormData();
   src = "https://media.mw.metropolia.fi/wbma";
+
+  filters = {
+    brightness: 100,
+    contrast: 100,
+    sepia: 0,
+    saturation: 100
+  };
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -62,6 +69,15 @@ export class UploadPage {
   }
 
   uploadImage() {
+    this.description +=
+      "Brightness: " +
+      this.filters.brightness +
+      ". Contrast: " +
+      this.filters.contrast +
+      ". Sepia:" +
+      this.filters.sepia +
+      ". Saturate: " +
+      this.filters.saturation;
     //show spinner
     const fd = new FormData();
     fd.append("file", this.file);
@@ -84,5 +100,15 @@ export class UploadPage {
       loading.dismiss();
       this.navCtrl.pop().catch();
     }, 2000);
+  }
+
+  adjustImage() {
+    var styles = {
+      filter: `brightness(${this.filters.brightness * 0.01}) contrast(${this
+        .filters.contrast * 0.01})
+      sepia(${this.filters.sepia * 0.01}) saturate(${this.filters.saturation *
+        0.01})`
+    };
+    return styles;
   }
 }

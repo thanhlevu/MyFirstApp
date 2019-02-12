@@ -12,7 +12,7 @@
   <ion-list>
     <ion-item *ngFor="let pic of (picArray3 | async)">
       <ion-thumbnail item-start>
-        <img [src]="src + (pic.file_id | thumbnail: 'medium' | async)" />
+        <img [src]="src + (pic.file_id | thumbnail: 'small' | async)" />
       </ion-thumbnail>
       <h2>{{ pic.title }}</h2>
       <p>{{ pic.description }}</p>

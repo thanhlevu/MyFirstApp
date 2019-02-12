@@ -14,45 +14,6 @@ export class ThumbnailPipe implements PipeTransform {
   private cachedID;
 
   constructor(public mediaProvider: MediaProvider) {}
-  /*transform(value: string, sizeOptions: string) {
-    //console.log(value);
-    const nameArray = value.split(".");
-    //console.log(nameArray);
-    if (sizeOptions == "small") {
-      let thumbnail =
-        "http://media.mw.metropolia.fi/wbma/uploads/" +
-        nameArray[0] +
-        "-tn160." +
-        "png";
-      return thumbnail;
-    } else if (sizeOptions == "medium") {
-      let thumbnail =
-        "http://media.mw.metropolia.fi/wbma/uploads/" +
-        nameArray[0] +
-        "-tn320." +
-        "png";
-      console.log("thumbnail: " + thumbnail);
-
-      return thumbnail;
-    } else if (sizeOptions == "large") {
-      let thumbnail =
-        "http://media.mw.metropolia.fi/wbma/uploads/" +
-        nameArray[0] +
-        "-tn640." +
-        "png";
-      return thumbnail;
-    } else if (sizeOptions == "screenshot") {
-      let thumbnail = "http://media.mw.metropolia.fi/wbma/uploads/" + value;
-      return thumbnail;
-    } else {
-      let thumbnail =
-        "http://media.mw.metropolia.fi/wbma/uploads/" +
-        nameArray[0] +
-        "-tn160." +
-        "png";
-      return thumbnail;
-    }
-  }*/
 
   async transform(id: string, ...args) {
     return new Promise((resolve, reject) => {
